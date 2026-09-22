@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import MagneticButton from "@/components/signature/MagneticButton";
 import { SERVICES } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -81,12 +82,11 @@ export default function ServicesPage() {
           Décrivez votre besoin — on vous oriente gratuitement vers la bonne
           approche.
         </p>
-        <Link
-          href="/contact"
-          className="mt-8 inline-flex items-center gap-3 rounded-full border border-jade px-8 py-4 text-sm font-bold uppercase tracking-widest text-jade transition-all hover:bg-jade hover:text-ink"
-        >
-          Parler du projet →
-        </Link>
+        <div className="mt-8 flex justify-center">
+          <MagneticButton href="/contact">
+            Parler du projet <span aria-hidden="true">→</span>
+          </MagneticButton>
+        </div>
       </Reveal>
     </div>
   );

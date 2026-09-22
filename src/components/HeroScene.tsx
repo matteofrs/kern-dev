@@ -18,11 +18,16 @@ function SignatureShape() {
     mouse.current.x = (state.pointer.x + mouse.current.x * 4) / 5;
     mouse.current.y = (state.pointer.y + mouse.current.y * 4) / 5;
 
+    // La caméra plonge au scroll : recule et descend, inclinaison progressive
+    const scroll = Math.min(1, window.scrollY / Math.max(1, window.innerHeight));
+    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, 5.2 + scroll * 2.8, 0.08);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, -scroll * 1.6, 0.08);
+
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.12;
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        -mouse.current.y * 0.35 + window.scrollY * 0.0004,
+        -mouse.current.y * 0.35 + scroll * 0.7,
         0.06
       );
     }

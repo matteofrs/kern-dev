@@ -48,7 +48,7 @@ function Artwork({ p }: { p: Project }) {
           />
         ))}
       </svg>
-      <span className="absolute right-4 top-4 rounded-full bg-ink/80 px-3 py-1 text-xs uppercase tracking-widest text-bone">
+      <span className="absolute right-4 top-4 bg-ink/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-bone">
         {p.category}
       </span>
     </div>
@@ -82,32 +82,45 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
         ))}
       </div>
 
-      {/* Grille */}
-      <motion.ul layout className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Signature 9 — grille asymétrique brutalement découpée, coins nets */}
+      <motion.ul layout className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-12">
         <AnimatePresence mode="popLayout">
-          {filtered.map((p) => (
-            <motion.li
-              key={p.slug}
-              layout={!reduced}
-              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.92, y: 30 }}
-              animate={reduced ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
-              exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.92 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="group overflow-hidden rounded-2xl border border-bone/10 bg-ink-soft transition-colors hover:border-ember/50"
-            >
-              <div className="transition-transform duration-500 group-hover:scale-[1.03]">
-                <Artwork p={p} />
-              </div>
-              <div className="p-6">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h2 className="text-display text-2xl">{p.title}</h2>
-                  <span className="text-xs text-bone-dim">{p.year}</span>
+          {filtered.map((p, idx) => {
+            // rythme asymétrique : spans alternés 7/5, offsets verticaux
+            const wide = idx % 2 === 0;
+            const span = wide ? "md:col-span-7" : "md:col-span-5";
+            const offset =
+              idx % 2 === 1 ? "md:translate-y-10" : idx % 4 === 2 ? "md:-translate-y-4" : "";
+            return (
+              <motion.li
+                key={p.slug}
+                layout={!reduced}
+                initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 24 }}
+                animate={reduced ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+                exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                data-cursor-label="Voir →"
+                className={`group overflow-hidden border border-bone/15 bg-ink-soft transition-colors hover:border-ember hover:bg-ink ${span} ${offset}`}
+              >
+                <div className="transition-transform duration-500 group-hover:scale-[1.02]">
+                  <Artwork p={p} />
                 </div>
-                <p className="mt-1 text-sm text-bone-dim">{p.client}</p>
-                <p className="mt-4 text-sm font-semibold text-jade">{p.result}</p>
-              </div>
-            </motion.li>
-          ))}
+                <div className="flex items-start justify-between gap-4 border-t border-bone/10 p-6">
+                  <div>
+                    <h2 className="text-display text-2xl">{p.title}</h2>
+                    <p className="mt-1 text-sm text-bone-dim">{p.client}</p>
+                  </div>
+                  <span className="text-display text-xl text-bone/20 transition-colors group-hover:text-ember">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-3 border-t border-bone/10 px-6 py-4">
+                  <p className="text-sm font-semibold text-jade">{p.result}</p>
+                  <p className="text-xs text-bone-dim">{p.year}</p>
+                </div>
+              </motion.li>
+            );
+          })}
         </AnimatePresence>
       </motion.ul>
     </>

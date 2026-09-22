@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import ScrollRead from "@/components/signature/ScrollRead";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -39,7 +40,7 @@ const EQUIPE = [
 export default function AProposPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 pb-28 pt-36 md:px-8">
-      {/* Manifesto typographique */}
+      {/* Manifesto typographique — signature 7 : lu par le scroll */}
       <Reveal>
         <p className="text-xs uppercase tracking-[0.3em] text-jade">Manifesto</p>
       </Reveal>
@@ -50,24 +51,20 @@ export default function AProposPage() {
             templates.
           </h1>
         </Reveal>
-        <Reveal delay={0.18}>
-          <p className="text-display max-w-3xl text-2xl leading-snug text-bone-dim md:text-4xl">
-            Chaque marque a une voix. Un site générique la rend{" "}
-            <span className="text-bone">muette</span>. Nous écrivons le code et
-            traçons les formes qui la rendent{" "}
-            <span className="text-jade">inoubliable</span>.
-          </p>
-        </Reveal>
+        <ScrollRead
+          className="text-display max-w-3xl text-2xl leading-snug text-bone-dim md:text-4xl"
+          text="Chaque marque a une voix. Un site générique la rend muette. Nous écrivons le code et traçons les formes qui la rendent inoubliable."
+        />
       </div>
 
       {/* Méthode */}
-      <section aria-labelledby="methode" className="mt-32">
+      <section id="methode" data-index="Méthode" aria-labelledby="methode" className="mt-32">
         <Reveal>
           <h2 id="methode" className="mb-14 text-xs uppercase tracking-[0.25em] text-bone-dim">
             La méthode, en quatre temps
           </h2>
         </Reveal>
-        <ol className="grid gap-px overflow-hidden rounded-2xl bg-bone/10 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="grid gap-px border border-bone/15 bg-bone/15 md:grid-cols-2 lg:grid-cols-4">
           {ETAPES.map((e, i) => (
             <Reveal key={e.n} delay={i * 0.1} className="group bg-ink p-8 transition-colors hover:bg-ink-soft">
               <span className="text-display text-5xl text-bone/15 transition-colors group-hover:text-ember">
@@ -81,7 +78,7 @@ export default function AProposPage() {
       </section>
 
       {/* Équipe */}
-      <section aria-labelledby="equipe" className="mt-32">
+      <section id="equipe" data-index="Équipe" aria-labelledby="equipe" className="mt-32">
         <Reveal>
           <h2 id="equipe" className="mb-14 text-xs uppercase tracking-[0.25em] text-bone-dim">
             L'équipe

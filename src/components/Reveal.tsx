@@ -18,7 +18,7 @@ export default function Reveal({
   children,
   className,
   delay = 0,
-  y = 40,
+  y = 14,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-12% 0px" });
