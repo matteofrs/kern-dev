@@ -3,6 +3,10 @@ import { Fraunces, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Preloader from "@/components/signature/Preloader";
+import CustomCursor from "@/components/signature/CustomCursor";
+import CropMarks from "@/components/signature/CropMarks";
+import SectionIndex from "@/components/signature/SectionIndex";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -40,9 +44,13 @@ export default function RootLayout({
         <a href="#contenu" className="skip-link">
           Aller au contenu
         </a>
+        <Preloader />
         <Header />
         <main id="contenu">{children}</main>
         <Footer />
+        <CustomCursor />
+        <CropMarks />
+        <SectionIndex />
       </body>
     </html>
   );

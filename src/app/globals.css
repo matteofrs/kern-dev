@@ -77,6 +77,12 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* Contour typographique — wordmark monumental */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ember);
+}
+
 .link-underline {
   position: relative;
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/data";
+import WordmarkFooter from "@/components/signature/WordmarkFooter";
 
 const LIENS = [
   { href: "/services", label: "Services" },
@@ -10,9 +11,11 @@ const LIENS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-bone/10">
-      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-        <div className="grid gap-12 md:grid-cols-3">
+    <footer className="border-t border-bone/15">
+      {/* Signature 10 — wordmark monumental, se remplit au scroll */}
+      <WordmarkFooter />
+      <div className="mx-auto max-w-7xl px-5 pb-16 pt-6 md:px-8">
+        <div className="grid gap-12 border-t border-bone/15 pt-12 md:grid-cols-3">
           <div>
             <p className="text-display text-4xl">
               kern<span className="text-ember">*</span>dev

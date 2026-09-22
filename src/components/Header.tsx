@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import LyonClock from "@/components/signature/LyonClock";
 
 const NAV = [
   { href: "/", label: "Accueil" },
@@ -43,7 +44,9 @@ export default function Header() {
 
         {/* Nav desktop */}
         <nav aria-label="Navigation principale" className="hidden md:block">
-          <ul className="flex items-center gap-8">
+          <div className="flex items-center gap-10">
+            <LyonClock />
+            <ul className="flex items-center gap-8">
             {NAV.map((item) => (
               <li key={item.href}>
                 <Link
@@ -68,6 +71,7 @@ export default function Header() {
               </Link>
             </li>
           </ul>
+          </div>
         </nav>
 
         {/* Bouton menu mobile */}
