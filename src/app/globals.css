@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0c09;
+  --color-ink-soft: #17130e;
+  --color-bone: #ece4d6;
+  --color-bone-dim: #9d9484;
+  --color-ember: #ff5c1f;
+  --color-jade: #2fe0b8;
+
+  --font-display: var(--font-fraunces), serif;
+  --font-body: var(--font-space-grotesk), system-ui, sans-serif;
+
+  --animate-marquee: marquee 28s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+
+/* Grain global */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Focus visible accessible */
+:focus-visible {
+  outline: 2px solid var(--color-jade);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-jade);
+  color: var(--color-ink);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.text-display {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 60, "WONK" 1;
+  letter-spacing: -0.02em;
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+}
