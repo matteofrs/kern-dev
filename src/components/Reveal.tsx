@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -20,8 +19,6 @@ export default function Reveal({
   delay = 0,
   y = 14,
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-12% 0px" });
   const reduced = useReducedMotion();
 
   if (reduced) {
@@ -30,10 +27,13 @@ export default function Reveal({
 
   return (
     <motion.div
-      ref={ref}
       className={className}
       initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
+      // whileInView (et non animate+useInView) : framer-motion reteste la
+      // visibilité après hydratation/layout shift — aucune cible ne peut
+      // rester bloquée à opacity:0 si l'observer rate le premier passage.
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-12% 0px" }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}

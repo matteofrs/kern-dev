@@ -71,6 +71,120 @@ body {
   top: 1rem;
 }
 
+@layer utilities {
+  /* ——— Système partagé « polish » — source unique des proportions ——— */
+
+  /* Conteneur unique : toutes les pages */
+  .container-site {
+    margin-inline: auto;
+    max-width: 80rem; /* max-w-7xl */
+    padding-inline: 1.25rem; /* px-5 */
+  }
+  @media (min-width: 768px) {
+    .container-site {
+      padding-inline: 2rem; /* md:px-8 */
+    }
+  }
+
+  /* Shell des pages intérieures (hors hero home / 404) */
+  .page-shell {
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: 1.25rem;
+    padding-top: 9rem; /* pt-36 */
+    padding-bottom: 6rem; /* pb-24 */
+  }
+  @media (min-width: 768px) {
+    .page-shell {
+      padding-inline: 2rem;
+      padding-bottom: 8rem; /* md:pb-32 */
+    }
+  }
+
+  /* Rythme vertical unique entre sections */
+  .section-pad {
+    padding-block: 6rem; /* py-24 */
+  }
+  @media (min-width: 768px) {
+    .section-pad {
+      padding-block: 8rem; /* md:py-32 */
+    }
+  }
+  /* Écart entre sections à l'intérieur d'une même page-shell */
+  .section-gap {
+    margin-top: 6rem;
+  }
+  @media (min-width: 768px) {
+    .section-gap {
+      margin-top: 8rem;
+    }
+  }
+
+  /* Kicker — label de section jade */
+  .kicker {
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--color-jade);
+  }
+
+  /* Échelle typographique unique */
+  .h1 {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+    letter-spacing: -0.02em;
+    margin-top: 1.5rem;
+    font-size: 3rem; /* text-5xl */
+    line-height: 0.95;
+  }
+  .h2 {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+    letter-spacing: -0.02em;
+    font-size: 1.875rem; /* text-3xl */
+    line-height: 1.2;
+  }
+  @media (min-width: 768px) {
+    .h1 { font-size: 4.5rem; } /* md:text-7xl */
+    .h2 { font-size: 3rem; } /* md:text-5xl */
+  }
+
+  /* Label de section discret (méthode, équipe, coordonnées…) */
+  .h2-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--color-bone-dim);
+  }
+
+  /* Panneau / carte : coins nets, bordure unique */
+  .panel {
+    border: 1px solid color-mix(in srgb, var(--color-bone) 15%, transparent);
+    background: var(--color-ink-soft);
+    padding: 2rem;
+  }
+
+  /* Bouton primaire plein — base visuelle unique */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border-radius: 9999px;
+    background: var(--color-ember);
+    padding: 1rem 2rem; /* py-4 px-8 */
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-ink);
+    transition: transform 0.2s ease;
+  }
+  .btn-primary:hover { transform: scale(1.03); }
+  .btn-primary:active { transform: scale(0.95); }
+}
+
 .text-display {
   font-family: var(--font-display);
   font-variation-settings: "SOFT" 60, "WONK" 1;
@@ -106,4 +220,16 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-marquee { animation: none; }
+}
+
+/* Transition d'entrée de page (CSS pur, indépendant de rAF) */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.page-enter {
+  animation: page-enter 0.4s ease 0.05s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter { animation: none; }
 }

@@ -29,18 +29,36 @@ export default function Preloader() {
     const dur = 1600;
     const start = performance.now();
     let raf = 0;
+    // Filet de sécurité : si requestAnimationFrame ne tourne jamais
+    // (onglet économisé, headless), le compteur avance quand même via timer
+    // et le rideau finit toujours par se fermer — le scroll ne reste
+    // jamais bloqué.
+    let last = 0;
+    const finish = () => {
+      sessionStorage.setItem("kern-preload", "1");
+      setTimeout(() => setDone(true), 350);
+    };
     const step = (t: number) => {
+      last = t;
       const p = Math.min(1, (t - start) / dur);
-      // ease-out cubique pour sentir l'accélération initiale
       setCount(Math.round((1 - Math.pow(1 - p, 3)) * 100));
       if (p < 1) raf = requestAnimationFrame(step);
-      else {
-        sessionStorage.setItem("kern-preload", "1");
-        setTimeout(() => setDone(true), 350);
-      }
+      else finish();
     };
     raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
+    const watchdog = setInterval(() => {
+      const elapsed = performance.now() - start;
+      // aucune frame depuis 800 ms alors que la durée est écoulée → on force
+      if (elapsed > dur + 400 && performance.now() - last > 800) {
+        cancelAnimationFrame(raf);
+        setCount(100);
+        finish();
+      }
+    }, 500);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(watchdog);
+    };
   }, [seen, reduced]);
 
   // Verrouille le scroll pendant le préloader

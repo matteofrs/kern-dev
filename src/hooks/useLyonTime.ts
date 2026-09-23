@@ -22,8 +22,12 @@ export function useLyonTime() {
     hour12: false,
     timeZone: "Europe/Paris",
   });
-  const time = fmt.format(now);
-  const hour = parseInt(time.slice(0, 2), 10);
+  // formatToParts évite les surprises « 24:xx:xx » de hour12:false à minuit
+  const parts = fmt.formatToParts(now);
+  const get = (t: string) =>
+    parts.find((p) => p.type === t)?.value ?? "00";
+  const time = `${get("hour")}:${get("minute")}:${get("second")}`;
+  const hour = parseInt(get("hour"), 10);
   const open = hour >= 9 && hour < 19;
   return { time, open, ready: true };
 }

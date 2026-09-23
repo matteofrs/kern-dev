@@ -21,7 +21,7 @@ export default function ContactContent() {
       <Reveal delay={0.15}>
         <aside className="space-y-10 lg:sticky lg:top-32">
           <div>
-            <h2 className="text-xs uppercase tracking-[0.25em] text-bone-dim">
+            <h2 className="h2-label">
               Coordonnées
             </h2>
             <ul className="mt-4 space-y-3 text-lg">
@@ -42,7 +42,7 @@ export default function ContactContent() {
             </ul>
           </div>
           <div>
-            <h2 className="text-xs uppercase tracking-[0.25em] text-bone-dim">
+            <h2 className="h2-label">
               Disponibilités
             </h2>
             <p className="mt-4 flex items-center gap-3">
@@ -57,7 +57,7 @@ export default function ContactContent() {
               offert, sans engagement.
             </p>
           </div>
-          <div className="rounded-2xl border border-bone/10 bg-ink-soft p-6">
+          <div className="panel p-6">
             <p className="text-display text-xl">« Réactif, précis, exigeant. »</p>
             <p className="mt-2 text-sm text-bone-dim">
               — chacun de nos clients, à un moment ou un autre

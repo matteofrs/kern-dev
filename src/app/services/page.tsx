@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-28 pt-36 md:px-8">
+    <div className="page-shell">
       <Reveal>
-        <p className="text-xs uppercase tracking-[0.3em] text-jade">Services</p>
-        <h1 className="text-display mt-6 text-6xl leading-[0.95] md:text-8xl">
+        <p className="kicker mb-0">Services</p>
+        <h1 className="h1">
           Trois façons de vous{" "}
           <span className="text-ember">faire gagner</span>.
         </h1>
@@ -25,19 +25,19 @@ export default function ServicesPage() {
         </p>
       </Reveal>
 
-      <div className="mt-24 space-y-28">
+      <div className="section-gap">
         {SERVICES.map((s, i) => (
           <article key={s.slug} id={s.slug} className="scroll-mt-28">
             <Reveal>
               <div className="grid gap-10 md:grid-cols-[5rem_1fr_19rem]">
                 <span
                   aria-hidden="true"
-                  className="text-display text-6xl text-bone/15 md:text-8xl"
+                  className="text-display text-5xl text-bone/15 md:text-7xl"
                 >
                   {s.index}
                 </span>
                 <div>
-                  <h2 className="text-display text-4xl md:text-5xl">{s.title}</h2>
+                  <h2 className="h2">{s.title}</h2>
                   <p className="mt-6 max-w-2xl leading-relaxed text-bone-dim">
                     {s.long}
                   </p>
@@ -52,7 +52,7 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                 </div>
-                <aside className="h-fit rounded-2xl border border-bone/10 bg-ink-soft p-6">
+                <aside className="panel h-fit p-6">
                   <p className="text-xs uppercase tracking-[0.25em] text-bone-dim">
                     Investissement
                   </p>
@@ -60,7 +60,7 @@ export default function ServicesPage() {
                   <p className="mt-1 text-sm text-bone-dim">Délai : {s.delay}</p>
                   <Link
                     href={`/contact?type=${encodeURIComponent(s.title)}`}
-                    className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-ember px-5 py-3 text-sm font-bold uppercase tracking-widest text-ink transition-transform hover:scale-[1.03] active:scale-95"
+                    className="btn-primary mt-6 w-full"
                   >
                     Demander un devis
                   </Link>
@@ -68,14 +68,14 @@ export default function ServicesPage() {
               </div>
             </Reveal>
             {i < SERVICES.length - 1 && (
-              <div aria-hidden="true" className="mt-24 h-px bg-bone/10" />
+              <div aria-hidden="true" className="my-24 h-px bg-bone/15 md:my-32" />
             )}
           </article>
         ))}
       </div>
 
-      <Reveal className="mt-28 text-center">
-        <p className="text-display text-3xl md:text-4xl">
+      <Reveal className="section-gap text-center">
+        <p className="h2">
           Hésitant entre deux offres ?
         </p>
         <p className="mx-auto mt-4 max-w-md text-bone-dim">

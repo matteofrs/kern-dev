@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 
 export default function ProjetsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-28 pt-36 md:px-8">
+    <div className="page-shell">
       <Reveal>
-        <p className="text-xs uppercase tracking-[0.3em] text-jade">Projets</p>
-        <h1 className="text-display mt-6 text-6xl leading-[0.95] md:text-8xl">
+        <p className="kicker mb-0">Projets</p>
+        <h1 className="h1">
           Le travail parle{" "}
           <span className="text-ember">lui-même</span>.
         </h1>

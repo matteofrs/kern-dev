@@ -39,14 +39,14 @@ const EQUIPE = [
 
 export default function AProposPage() {
   return (
-    <div className="mx-auto max-w-7xl px-5 pb-28 pt-36 md:px-8">
+    <div className="page-shell">
       {/* Manifesto typographique — signature 7 : lu par le scroll */}
       <Reveal>
-        <p className="text-xs uppercase tracking-[0.3em] text-jade">Manifesto</p>
+        <p className="kicker mb-0">Manifesto</p>
       </Reveal>
-      <div className="mt-10 space-y-6">
+      <div className="mt-6 space-y-6">
         <Reveal delay={0.05}>
-          <h1 className="text-display text-[12vw] leading-[0.9] md:text-[7.5vw]">
+          <h1 className="h1 mt-0">
             Le web mérite <span className="text-ember">mieux</span> que des
             templates.
           </h1>
@@ -58,9 +58,9 @@ export default function AProposPage() {
       </div>
 
       {/* Méthode */}
-      <section id="methode" data-index="Méthode" aria-labelledby="methode" className="mt-32">
+      <section id="methode" data-index="Méthode" aria-labelledby="methode" className="section-gap">
         <Reveal>
-          <h2 id="methode" className="mb-14 text-xs uppercase tracking-[0.25em] text-bone-dim">
+          <h2 id="methode" className="h2-label mb-14">
             La méthode, en quatre temps
           </h2>
         </Reveal>
@@ -78,13 +78,13 @@ export default function AProposPage() {
       </section>
 
       {/* Équipe */}
-      <section id="equipe" data-index="Équipe" aria-labelledby="equipe" className="mt-32">
+      <section id="equipe" data-index="Équipe" aria-labelledby="equipe" className="section-gap">
         <Reveal>
-          <h2 id="equipe" className="mb-14 text-xs uppercase tracking-[0.25em] text-bone-dim">
+          <h2 id="equipe" className="h2-label mb-14">
             L'équipe
           </h2>
         </Reveal>
-        <ul className="divide-y divide-bone/10 border-y border-bone/10">
+        <ul className="divide-y divide-bone/15 border-y border-bone/15">
           {EQUIPE.map((m, i) => (
             <Reveal key={m.name} delay={i * 0.08}>
               <li className="grid gap-2 py-8 md:grid-cols-[1fr_auto_1fr] md:items-baseline md:gap-8">

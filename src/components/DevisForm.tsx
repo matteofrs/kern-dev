@@ -8,7 +8,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 type Status = "idle" | "sending" | "success";
 
 const inputCls =
-  "w-full rounded-xl border border-bone/15 bg-ink-soft px-4 py-3 text-bone placeholder:text-bone-dim/50 transition-colors focus:border-jade focus:outline-none";
+  "w-full border border-bone/15 bg-ink-soft px-4 py-3 text-bone placeholder:text-bone-dim/50 transition-colors focus:border-jade focus:outline-none";
 const labelCls = "mb-2 block text-xs uppercase tracking-[0.2em] text-bone-dim";
 
 export default function DevisForm({ defaultType }: { defaultType?: string }) {
@@ -67,7 +67,7 @@ export default function DevisForm({ defaultType }: { defaultType?: string }) {
             initial={reduced ? undefined : { opacity: 0, scale: 0.9 }}
             animate={reduced ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-jade/40 bg-ink-soft p-12 text-center"
+            className="panel border-jade/40 p-12 text-center"
           >
             <motion.div
               initial={reduced ? undefined : { scale: 0 }}
@@ -155,7 +155,7 @@ export default function DevisForm({ defaultType }: { defaultType?: string }) {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="group inline-flex items-center gap-3 rounded-full bg-ember px-8 py-4 text-sm font-bold uppercase tracking-widest text-ink transition-all hover:scale-[1.03] active:scale-95 disabled:cursor-wait disabled:opacity-60"
+                className="group btn-primary disabled:cursor-wait disabled:opacity-60"
               >
                 {status === "sending" ? (
                   <>

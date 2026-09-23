@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type Section = { id: string; label: string };
 
@@ -8,8 +9,11 @@ type Section = { id: string; label: string };
  * Signature 5 — Navigation index latérale.
  * Timeline verticale des sections (dots + labels au hover), desktop uniquement.
  * Lit les éléments [data-index] de la page ; IntersectionObserver pour l'état actif.
+ * Recollecte à chaque navigation (pathname) et via MutationObserver —
+ * sinon la timeline pointerait des sections de la page précédente.
  */
 export default function SectionIndex() {
+  const pathname = usePathname();
   const [sections, setSections] = useState<Section[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -22,13 +26,21 @@ export default function SectionIndex() {
       );
     };
     collect();
-    // Laisser le temps au contenu dynamique (Reveal etc.) de se monter
-    const t = setTimeout(collect, 400);
-    return () => clearTimeout(t);
-  }, []);
+    // Recollecte si le DOM change (contenu dynamique monté après coup)
+    const mo = new MutationObserver(collect);
+    mo.observe(document.getElementById("contenu") ?? document.body, {
+      childList: true,
+      subtree: true,
+    });
+    return () => mo.disconnect();
+  }, [pathname]);
 
   useEffect(() => {
     if (sections.length === 0) return;
+    // Filtre les cibles réellement présentes — jamais de dot pointant
+    // vers une section inexistante.
+    const existing = sections.filter((s) => document.getElementById(s.id));
+    if (existing.length === 0) return;
     observer.current?.disconnect();
     observer.current = new IntersectionObserver(
       (entries) => {
@@ -38,21 +50,23 @@ export default function SectionIndex() {
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    sections.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.current?.observe(el);
+    existing.forEach((s) => {
+      observer.current?.observe(document.getElementById(s.id)!);
     });
     return () => observer.current?.disconnect();
   }, [sections]);
 
-  if (sections.length < 2) return null;
+  const visible = sections.filter(
+    (s, i, arr) => arr.findIndex((x) => x.id === s.id) === i
+  );
+  if (visible.length < 2) return null;
 
   return (
     <nav
       aria-label="Sommaire de la page"
       className="group fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex"
     >
-      {sections.map((s) => {
+      {visible.map((s) => {
         const active = s.id === activeId;
         return (
           <a

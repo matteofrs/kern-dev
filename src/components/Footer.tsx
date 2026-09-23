@@ -14,7 +14,7 @@ export default function Footer() {
     <footer className="border-t border-bone/15">
       {/* Signature 10 — wordmark monumental, se remplit au scroll */}
       <WordmarkFooter />
-      <div className="mx-auto max-w-7xl px-5 pb-16 pt-6 md:px-8">
+      <div className="container-site pb-16 pt-6">
         <div className="grid gap-12 border-t border-bone/15 pt-12 md:grid-cols-3">
           <div>
             <p className="text-display text-4xl">

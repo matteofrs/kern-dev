@@ -3,14 +3,41 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { SplitWords } from "@/components/signature/SplitWords";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Mot révélé au chargement (stagger) — jamais dépendant du scroll :
+ *  le titre doit être visible dès l'arrivée sur la page. */
+function WordIn({
+  text,
+  delay,
+  className = "",
+}: {
+  text: string;
+  delay: number;
+  className?: string;
+}) {
+  return (
+    <span className={`inline-block overflow-hidden pb-1 align-bottom ${className}`}>
+      <motion.span
+        className="inline-block will-change-transform"
+        initial={{ y: "110%", opacity: 0 }}
+        animate={{ y: "0%", opacity: 1 }}
+        transition={{ duration: 0.7, delay, ease: EASE }}
+      >
+        {text}
+        {"\u00A0"}
+      </motion.span>
+    </span>
+  );
+}
+
 /**
- * Signature 3 — Titre hero scroll-telling.
- * Le texte se révèle mot à mot quand la section entre, et se dissipe
- * légèrement quand l'utilisateur commence à scroller (camera plonge dans
- * HeroScene). Reduced-motion : texte statique.
+ * Signature 3 — Titre hero.
+ * Révélé mot à mot au chargement, se dissipe légèrement quand
+ * l'utilisateur scrolle (la caméra plonge dans HeroScene).
+ * Reduced-motion : texte statique.
  */
 export default function HeroScrollTitle() {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,13 +46,15 @@ export default function HeroScrollTitle() {
     target: ref,
     offset: ["start start", "end start"],
   });
+  // Corps visible d'emblée — jamais de contenu invisible au chargement.
+  // Le titre se dissipe au scroll ; le corps reste lisible puis s'estompe tard.
   const titleOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const bodyOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
+  const bodyOpacity = useTransform(scrollYProgress, [0.55, 0.8], [1, 0]);
 
   if (reduced) {
     return (
-      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8">
-        <p className="mb-6 text-xs uppercase tracking-[0.3em] text-jade">
+      <div className="container-site pointer-events-none relative z-10 w-full">
+        <p className="kicker mb-6">
           Studio web — Lyon, France
         </p>
         <h1 className="text-display text-[13vw] leading-[0.92] md:text-[8.5vw]">
@@ -40,7 +69,7 @@ export default function HeroScrollTitle() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex w-fit items-center gap-3 rounded-full bg-ember px-7 py-4 text-sm font-bold uppercase tracking-widest text-ink transition-transform hover:scale-105 active:scale-95"
+            className="btn-primary w-fit"
           >
             Demander un devis <span aria-hidden="true">→</span>
           </Link>
@@ -53,30 +82,20 @@ export default function HeroScrollTitle() {
     <motion.div
       ref={ref}
       style={{ opacity: titleOpacity }}
-      className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl px-5 md:px-8"
+      className="container-site pointer-events-none relative z-10 w-full"
     >
-      <p className="mb-6 text-xs uppercase tracking-[0.3em] text-jade">
+      <p className="kicker mb-6">
         Studio web — Lyon, France
       </p>
       <h1 className="text-display text-[13vw] leading-[0.92] md:text-[8.5vw]">
         <span className="block">
-          <SplitWords text="Le" progress={scrollYProgress} range={[0, 0.05]} />
-          <SplitWords
-            text="code"
-            className="text-ember"
-            progress={scrollYProgress}
-            range={[0.03, 0.1]}
-          />
-          <SplitWords text="précis." progress={scrollYProgress} range={[0.08, 0.16]} />
+          <WordIn text="Le" delay={0.05} />
+          <WordIn text="code" className="text-ember" delay={0.12} />
+          <WordIn text="précis." delay={0.19} />
         </span>
         <span className="block">
-          <SplitWords text="Le design qui" progress={scrollYProgress} range={[0.14, 0.28]} />
-          <SplitWords
-            text="touche."
-            className="text-jade"
-            progress={scrollYProgress}
-            range={[0.26, 0.38]}
-          />
+          <WordIn text="Le design qui" delay={0.26} />
+          <WordIn text="touche." className="text-jade" delay={0.36} />
         </span>
       </h1>
       <motion.div
@@ -89,7 +108,7 @@ export default function HeroScrollTitle() {
         </p>
         <Link
           href="/contact"
-          className="inline-flex w-fit items-center gap-3 rounded-full bg-ember px-7 py-4 text-sm font-bold uppercase tracking-widest text-ink transition-transform hover:scale-105 active:scale-95"
+          className="btn-primary w-fit"
         >
           Demander un devis <span aria-hidden="true">→</span>
         </Link>

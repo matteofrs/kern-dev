@@ -64,14 +64,14 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
   return (
     <>
       {/* Filtres */}
-      <div role="group" aria-label="Filtrer par catégorie" className="mt-12 flex flex-wrap gap-3">
+      <div role="group" aria-label="Filtrer par catégorie" className="mt-16 flex flex-wrap gap-3">
         {CATEGORIES.map((c) => (
           <button
             key={c}
             type="button"
             onClick={() => setCat(c)}
             aria-pressed={cat === c}
-            className={`rounded-full border px-5 py-2 text-sm font-semibold uppercase tracking-widest transition-all ${
+            className={`rounded-full border px-5 py-2 text-sm font-semibold uppercase tracking-widest transition-colors ${
               cat === c
                 ? "border-ember bg-ember text-ink"
                 : "border-bone/20 text-bone-dim hover:border-bone/50 hover:text-bone"
@@ -83,7 +83,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
       </div>
 
       {/* Signature 9 — grille asymétrique brutalement découpée, coins nets */}
-      <motion.ul layout className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-12">
+      <motion.ul layout className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-12">
         <AnimatePresence mode="popLayout">
           {filtered.map((p, idx) => {
             // rythme asymétrique : spans alternés 7/5, offsets verticaux
@@ -105,7 +105,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                 <div className="transition-transform duration-500 group-hover:scale-[1.02]">
                   <Artwork p={p} />
                 </div>
-                <div className="flex items-start justify-between gap-4 border-t border-bone/10 p-6">
+                <div className="flex items-start justify-between gap-4 border-t border-bone/15 p-6">
                   <div>
                     <h2 className="text-display text-2xl">{p.title}</h2>
                     <p className="mt-1 text-sm text-bone-dim">{p.client}</p>
@@ -114,7 +114,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <div className="flex items-center justify-between gap-3 border-t border-bone/10 px-6 py-4">
+                <div className="flex items-center justify-between gap-3 border-t border-bone/15 px-6 py-4">
                   <p className="text-sm font-semibold text-jade">{p.result}</p>
                   <p className="text-xs text-bone-dim">{p.year}</p>
                 </div>

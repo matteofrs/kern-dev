@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-svh items-center overflow-hidden px-5 md:px-8" role="alert" aria-label="Page introuvable">
+    <div className="relative flex min-h-svh items-center overflow-hidden" role="alert" aria-label="Page introuvable">
       <div className="absolute inset-0 opacity-70">
         <NotFoundScene />
       </div>
-      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl">
-        <p className="text-xs uppercase tracking-[0.3em] text-jade">
+      <div className="container-site pointer-events-none relative z-10 w-full">
+        <p className="kicker mb-0">
           Erreur 404 — Hors des sentiers
         </p>
-        <h1 className="text-display mt-6 text-[16vw] leading-[0.85] md:text-[10vw]">
+        <h1 className="h1 text-6xl leading-[0.95] md:text-8xl">
           Le tore s'est{" "}
           <span className="text-ember">dénoué</span>.
         </h1>

@@ -20,7 +20,7 @@ export default function Home() {
       <section
         id="hero"
         data-index="Ouverture"
-        className="relative flex min-h-svh items-end overflow-hidden pb-16 pt-28"
+        className="relative flex min-h-svh items-end overflow-hidden pb-24 pt-36"
       >
         <div className="absolute inset-0">
           <HeroCanvas />
@@ -35,9 +35,9 @@ export default function Home() {
       <section
         id="manifesto"
         data-index="Manifeste"
-        className="mx-auto max-w-7xl px-5 py-28 md:px-8"
+        className="container-site section-pad"
       >
-        <p className="mb-10 text-xs uppercase tracking-[0.3em] text-jade">
+        <p className="kicker mb-10">
           01 — Manifeste
         </p>
         <ScrollRead
@@ -55,13 +55,13 @@ export default function Home() {
         id="expertises"
         data-index="Expertises"
         aria-labelledby="expertises"
-        className="mx-auto max-w-7xl px-5 pb-28 md:px-8"
+        className="container-site pb-24 md:pb-32"
       >
         <Reveal>
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-jade">
+          <p className="kicker">
             02 — Expertises
           </p>
-          <h2 id="expertises" className="text-display mb-14 max-w-2xl text-4xl leading-tight md:text-5xl">
+          <h2 id="expertises" className="h2 mb-14 max-w-2xl">
             Trois expertises, <span className="text-ember">une seule</span> exigence
           </h2>
         </Reveal>
@@ -73,7 +73,7 @@ export default function Home() {
                   href={`/services#${s.slug}`}
                   className="group grid items-baseline gap-4 py-8 transition-colors hover:bg-ink-soft md:grid-cols-[5rem_1fr_auto] md:gap-8 md:px-6"
                 >
-                  <span className="text-display text-4xl text-bone/20 transition-colors group-hover:text-ember md:text-5xl">
+                  <span className="text-display text-4xl text-bone/15 transition-colors group-hover:text-ember md:text-5xl">
                     {s.index}
                   </span>
                   <span>
@@ -99,14 +99,14 @@ export default function Home() {
         id="preuve"
         data-index="Preuves"
         aria-labelledby="preuve"
-        className="border-y border-bone/15 bg-ink-soft py-28"
+        className="border-y border-bone/15 bg-ink-soft section-pad"
       >
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <div className="container-site">
           <Reveal>
-            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-jade">
+            <p className="kicker">
               03 — Preuves
             </p>
-            <h2 id="preuve" className="text-display mb-14 text-4xl leading-tight md:text-5xl">
+            <h2 id="preuve" className="h2 mb-14">
               Résultats <span className="text-jade">mesurés</span>
             </h2>
           </Reveal>
@@ -115,7 +115,7 @@ export default function Home() {
               <Reveal
                 key={p.slug}
                 delay={i * 0.1}
-                className={`bg-ink p-10 ${i === 1 ? "md:translate-y-8" : ""}`}
+                className={`bg-ink p-8 ${i === 1 ? "md:translate-y-8" : ""}`}
               >
                 <p className="text-display text-2xl text-bone">{p.title}</p>
                 <p className="mt-2 text-sm text-bone-dim">{p.client}</p>
@@ -124,7 +124,7 @@ export default function Home() {
             ))}
           </div>
           <Reveal delay={0.2}>
-            <blockquote className="mx-auto mt-24 max-w-3xl border-l-2 border-ember pl-6 text-left md:pl-10">
+            <blockquote className="mx-auto mt-16 max-w-3xl border-l-2 border-ember pl-6 text-left md:mt-20 md:pl-10">
               <p className="text-display text-2xl leading-snug md:text-3xl">
                 « Ils ont livré un site que nos concurrents essayent encore de
                 copier. Les demandes de devis ont triplé en deux mois. »
@@ -141,14 +141,14 @@ export default function Home() {
       <section
         id="contact-cta"
         data-index="Contact"
-        className="mx-auto max-w-7xl px-5 py-28 md:px-8"
+        className="container-site section-pad"
       >
         <div className="grid items-end gap-10 md:grid-cols-[1fr_auto]">
           <Reveal>
-            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-jade">
+            <p className="kicker">
               04 — Pour commencer
             </p>
-            <h2 className="text-display text-[11vw] leading-[0.9] md:text-7xl">
+            <h2 className="text-display text-5xl leading-[0.95] md:text-7xl">
               Un projet en tête ?
             </h2>
             <p className="mt-6 max-w-md text-bone-dim">

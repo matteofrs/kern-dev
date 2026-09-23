@@ -63,14 +63,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </motion.div>
         )}
       </AnimatePresence>
-      <motion.div
-        key={pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.45 }}
-      >
+      {/* Fondu d'entrée en CSS pur (compositor, pas de rAF) : le contenu
+          apparaît même si les animations JS ne tournent pas — jamais de
+          page bloquée invisible. */}
+      <div key={pathname} className="page-enter">
         {children}
-      </motion.div>
+      </div>
     </>
   );
 }

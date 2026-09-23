@@ -71,7 +71,7 @@ export default function MagneticButton({ children, className = "", href }: Props
       onPointerMove={onMove}
       onPointerEnter={onEnter}
       onPointerLeave={onLeave}
-      className={`relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full border border-ember px-7 py-4 text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${
+      className={`relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-full border border-ember px-8 py-4 text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${
         hover ? "text-ink" : "text-ember"
       } ${className}`}
     >
